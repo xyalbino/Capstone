@@ -1,2 +1,2 @@
 # Capstone
-Capstone of QR code Forensics
+Capstone of QR code Forensics.
