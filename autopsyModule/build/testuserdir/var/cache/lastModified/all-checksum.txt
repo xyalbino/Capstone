@@ -1,0 +1,12 @@
+E:\Program Files\autopsy\platform=1555536280000
+cluster.E:/project/autopsyModule/build/cluster=1558645100378
+cluster.E:/Program Files/autopsy/autopsy=1555536474000
+cluster.E:/Program Files/autopsy/harness=1555536274000
+cluster.E:/Program Files/autopsy/java=1555536274000
+cluster.E:/Program Files/autopsy/platform=1555536280000
+user=1558645100378
+crc=7
+locale=zh_CN
+branding=null
+java.version=1.8.0_211
+java.vm.version=25.211-b12

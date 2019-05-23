@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+AutoUpdate-Show-In-Client: true
+OpenIDE-Module: org.gzyorg.autopsy
+OpenIDE-Module-Localizing-Bundle: org/qrcode/autopsy/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.0
+
