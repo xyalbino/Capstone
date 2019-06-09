@@ -47,6 +47,11 @@ import org.sleuthkit.datamodel.BlackboardAttribute;
 import org.sleuthkit.datamodel.TskCoreException;
 import org.sleuthkit.datamodel.SleuthkitCase;
 import org.sleuthkit.datamodel.TskData;
+import org.sleuthkit.datamodel.casemodule.Case;
+import org.sleuthkit.datamodel.casemodule.CaseMetadata;
+import org.sleuthkit.datamodel.casemodule.services.Blackboard;
+import org.sleuthkit.datamodel.casemodule.services.Blackboard.BlackboardException;
+
 
 /**
  * Sample file ingest module that doesn't do much. Demonstrates per ingest job
@@ -108,6 +113,22 @@ class SampleFileIngestModule implements FileIngestModule {
             // and be making more specific artifacts.
             BlackboardArtifact art = file.getGenInfoArtifact();
             art.addAttribute(attr);
+
+            //Create the blackboard
+            Blackboard blackboard = Case.getCurrentCase().getServices().getBlackboard();
+            try{
+                blackboard.indexArtifact(art);
+            } catch (BlackboardException ex) {
+                System.out.println("Blackboard Exception");
+            } 
+
+            Case ca = Case.getCurrentCase();
+
+            try{
+                ca.addReport("1","2","3");
+            } catch (TskCoreException e) {
+                System.out.print("Task Error");
+            }
 
             // This method is thread-safe with per ingest job reference counted
             // management of shared data.
