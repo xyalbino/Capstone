@@ -125,7 +125,7 @@ class SampleFileIngestModule implements FileIngestModule {
             Case ca = Case.getCurrentCase();
 
             try{
-                ca.addReport("1","2","3");
+                ca.addReport("1","2","3"); //threeStrings
             } catch (TskCoreException e) {
                 System.out.print("Task Error");
             }
