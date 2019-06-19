@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
->Log Session: Wednesday, June 19, 2019 4:06:30 PM EDT
+>Log Session: Wednesday, June 19, 2019 7:34:20 PM EDT
 >System Info: 
   Product Version         = NetBeans Platform 8.2 (Build 201609300101)
   Operating System        = Windows 10 version 10.0 running on amd64
@@ -205,63 +205,28 @@ Heap memory usage: initial 256.0MB maximum 3623.5MB
 Non heap memory usage: initial 2.4MB maximum -1b
 Garbage collector: PS Scavenge (Collections=6 Total time spent=0s)
 Garbage collector: PS MarkSweep (Collections=2 Total time spent=0s)
-Classes: loaded=8164 total loaded=8165 unloaded 1
+Classes: loaded=8165 total loaded=8165 unloaded 0
 INFO [org.netbeans.core.ui.warmup.DiagnosticTask]: Total memory 17,092,161,536
 INFO [null]: 总物理内存17,092,161,536
-INFO [org.netbeans.core.startup.layers.BinaryFS]: value = org.sleuthkit.autopsy.casemodule.CaseOpenAction from Actions/Case/org-sleuthkit-autopsy-casemodule-CaseOpenAction.instance
-java.lang.IndexOutOfBoundsException: Invalid index
-	at javax.swing.DefaultRowSorter.convertRowIndexToModel(DefaultRowSorter.java:514)
-	at sun.swing.FilePane$SortableListModel.getElementAt(FilePane.java:670)
-	at javax.swing.plaf.basic.BasicListUI.updateLayoutState(BasicListUI.java:1360)
-	at javax.swing.plaf.basic.BasicListUI.maybeUpdateLayoutState(BasicListUI.java:1311)
-	at javax.swing.plaf.basic.BasicListUI.getCellBounds(BasicListUI.java:952)
-	at javax.swing.JList.getCellBounds(JList.java:1637)
-	at javax.swing.JList.ensureIndexIsVisible(JList.java:1149)
-	at sun.swing.FilePane.ensureIndexIsVisible(FilePane.java:1708)
-	at sun.swing.FilePane.doDirectoryChanged(FilePane.java:1631)
-	at sun.swing.FilePane.propertyChange(FilePane.java:1681)
-	at java.beans.PropertyChangeSupport.fire(PropertyChangeSupport.java:335)
-	at java.beans.PropertyChangeSupport.firePropertyChange(PropertyChangeSupport.java:327)
-	at java.beans.PropertyChangeSupport.firePropertyChange(PropertyChangeSupport.java:263)
-	at java.awt.Component.firePropertyChange(Component.java:8434)
-	at javax.swing.JFileChooser.setCurrentDirectory(JFileChooser.java:598)
-	at org.sleuthkit.autopsy.casemodule.CaseOpenAction.<init>(CaseOpenAction.java:82)
-Caused: java.lang.reflect.InvocationTargetException
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-	at org.openide.util.SharedClassObject.createInstancePrivileged(SharedClassObject.java:658)
-	at org.openide.util.SharedClassObject$SetAccessibleAction.run(SharedClassObject.java:1018)
-	at org.openide.util.SharedClassObject$SetAccessibleAction.run(SharedClassObject.java:1010)
-	at java.security.AccessController.doPrivileged(Native Method)
-	at org.openide.util.SharedClassObject.findObject(SharedClassObject.java:532)
-Caused: java.lang.IllegalArgumentException
-	at org.openide.util.SharedClassObject.findObject(SharedClassObject.java:535)
-[catch] at org.netbeans.core.startup.layers.BinaryFS$AttrImpl.getValue(BinaryFS.java:708)
-	at org.netbeans.core.startup.layers.BinaryFS$BFSBase.getAttribute(BinaryFS.java:549)
-	at org.openide.filesystems.MultiFileObject.getAttribute(MultiFileObject.java:944)
-	at org.openide.filesystems.MultiFileObject.getAttribute(MultiFileObject.java:877)
-	at org.openide.filesystems.MultiFileObject.getAttribute(MultiFileObject.java:940)
-	at org.openide.filesystems.MultiFileObject.getAttribute(MultiFileObject.java:877)
-	at org.openide.filesystems.MultiFileObject.getAttribute(MultiFileObject.java:798)
-	at org.openide.loaders.InstanceDataObject$Ser.instanceCreate(InstanceDataObject.java:1432)
-	at org.openide.loaders.InstanceDataObject.instanceCreate(InstanceDataObject.java:846)
-	at org.openide.awt.MenuBar$LazyMenu$MenuFolder.acceptCookie(MenuBar.java:829)
-	at org.openide.loaders.FolderInstance.acceptDataObject(FolderInstance.java:419)
-	at org.openide.loaders.FolderInstance.defaultProcessObjects(FolderInstance.java:798)
-	at org.openide.loaders.FolderInstance.access$000(FolderInstance.java:103)
-	at org.openide.loaders.FolderInstance$1R.init(FolderInstance.java:693)
-	at org.openide.loaders.FolderInstance$1R.run(FolderInstance.java:720)
-	at org.openide.util.RequestProcessor$Task.run(RequestProcessor.java:1443)
-	at org.netbeans.modules.openide.util.GlobalLookup.execute(GlobalLookup.java:68)
-	at org.openide.util.lookup.Lookups.executeWith(Lookups.java:303)
-	at org.openide.util.RequestProcessor$Processor.run(RequestProcessor.java:2058)
 WARNING [org.openide.filesystems.Ordering]: Found same position 1,400 for both Menu/Tools/org-netbeans-modules-autoupdate-ui-actions-PluginManagerAction.shadow and Menu/Tools/org-sleuthkit-autopsy-actions-OpenPythonModulesFolderAction.shadow
 WARNING [org.openide.filesystems.Ordering]: Found same position 200 for both Menu/Tools/Separator1.instance and Menu/Tools/org-sleuthkit-autopsy-filesearch-FileSearchAction.shadow
 WARNING [org.openide.filesystems.Ordering]: Found same position 102 for both Menu/Tools/org-sleuthkit-autopsy-communicationsVisualization-OpenCVTAction.shadow and Menu/Tools/org-sleuthkit-autopsy-timeline-Timeline.shadow
 INFO [org.netbeans.core.windows.persistence]: [PersistenceManager.getTopComponentForID] Problem when deserializing TopComponent for tcID:'Listing'. Reason: 找不到顶层组件Listing, 或无法从 'Components' 文件夹加载此顶层组件。
 WARNING [org.openide.filesystems.Ordering]: Could not find both sides of relative ordering attribute master-help.xml/org-sleuthkit-autopsy-corecomponents-CustomAboutAction.shadow on Menu/Help
+31987 [MLog-Init-Reporter] INFO com.mchange.v2.log.MLog - MLog clients using slf4j logging.
+32265 [123_20190619_193455-case-action] INFO com.mchange.v2.c3p0.C3P0Registry - Initializing c3p0-0.9.5 [built 02-January-2015 13:25:04 -0500; debug? true; trace: 10]
+32600 [123_20190619_193455-case-action] INFO com.mchange.v2.c3p0.impl.AbstractPoolBackedDataSource - Initializing c3p0 pool... com.mchange.v2.c3p0.PoolBackedDataSource@ee050d48 [ connectionPoolDataSource -> com.mchange.v2.c3p0.WrapperConnectionPoolDataSource@73e15a3e [ acquireIncrement -> 2, acquireRetryAttempts -> 30, acquireRetryDelay -> 1000, autoCommitOnClose -> false, automaticTestTable -> null, breakAfterAcquireFailure -> false, checkoutTimeout -> 0, connectionCustomizerClassName -> null, connectionTesterClassName -> com.mchange.v2.c3p0.impl.DefaultConnectionTester, contextClassLoaderSource -> caller, debugUnreturnedConnectionStackTraces -> false, factoryClassLocation -> null, forceIgnoreUnresolvedTransactions -> false, identityToken -> 2zh489a3vnn938a7qjhn|6d16abb7, idleConnectionTestPeriod -> 0, initialPoolSize -> 5, maxAdministrativeTaskTime -> 0, maxConnectionAge -> 0, maxIdleTime -> 0, maxIdleTimeExcessConnections -> 0, maxPoolSize -> 20, maxStatements -> 200, maxStatementsPerConnection -> 20, minPoolSize -> 5, nestedDataSource -> org.sqlite.SQLiteDataSource@59f9c87b, preferredTestQuery -> null, privilegeSpawnedThreads -> false, propertyCycle -> 0, statementCacheNumDeferredCloseThreads -> 0, testConnectionOnCheckin -> false, testConnectionOnCheckout -> false, unreturnedConnectionTimeout -> 0, usesTraditionalReflectiveProxies -> false; userOverrides: {} ], dataSourceName -> null, extensions -> {}, factoryClassLocation -> null, identityToken -> 2zh489a3vnn938a7qjhn|2cf3d2e8, numHelperThreads -> 3 ]
+INFO [org.sleuthkit.datamodel.SleuthkitCase]: Time to initialize parent node cache: 0 ms
+INFO [org.sleuthkit.datamodel.SleuthkitCase]: sqlite-jdbc version 3.25.2 loaded in native mode
+JBIG2ImageReader not loaded. jbig2 files will be ignored
+See https://pdfbox.apache.org/2.0/dependencies.html#jai-image-io
+for optional dependencies.
+TIFFImageWriter not loaded. tiff files will not be processed
+See https://pdfbox.apache.org/2.0/dependencies.html#jai-image-io
+for optional dependencies.
+J2KImageReader not loaded. JPEG2000 files will not be processed.
+See https://pdfbox.apache.org/2.0/dependencies.html#jai-image-io
+for optional dependencies.
 INFO [org.netbeans.core.windows.persistence]: [PersistenceManager.getTopComponentForID] Problem when deserializing TopComponent for tcID:'TimeLineTopComponent'. Reason: null
 Content: 
 <?xml version="1.0" encoding="UTF-8"?>
@@ -270,7 +235,7 @@ Content:
   <instance class="org.sleuthkit.autopsy.timeline.TimeLineTopComponent"/>
 </settings>
 Class: class org.sleuthkit.autopsy.timeline.TimeLineTopComponent
-Source: MultiFileObject@73402498[Windows2Local/Components/TimeLineTopComponent.settings]
+Source: MultiFileObject@48dbc6a4[Windows2Local/Components/TimeLineTopComponent.settings]
 Content: 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE settings PUBLIC "-//NetBeans//DTD Session settings 1.0//EN" "http://www.netbeans.org/dtds/sessionsettings-1_0.dtd">
@@ -278,7 +243,7 @@ Content:
   <instance class="org.sleuthkit.autopsy.timeline.TimeLineTopComponent"/>
 </settings>
 Class: class org.sleuthkit.autopsy.timeline.TimeLineTopComponent
-Source: MultiFileObject@73402498[Windows2Local/Components/TimeLineTopComponent.settings]
+Source: MultiFileObject@48dbc6a4[Windows2Local/Components/TimeLineTopComponent.settings]
 Caused: java.lang.NoSuchMethodException: org.sleuthkit.autopsy.timeline.TimeLineTopComponent.<init>()
 	at java.lang.Class.getConstructor0(Class.java:3082)
 	at java.lang.Class.getDeclaredConstructor(Class.java:2178)
@@ -353,4 +318,4 @@ Content:
   <instance class="org.sleuthkit.autopsy.timeline.TimeLineTopComponent"/>
 </settings>
 ALL [null]: Class: class org.sleuthkit.autopsy.timeline.TimeLineTopComponent
-ALL [null]: Source: MultiFileObject@73402498[Windows2Local/Components/TimeLineTopComponent.settings]
+ALL [null]: Source: MultiFileObject@48dbc6a4[Windows2Local/Components/TimeLineTopComponent.settings]

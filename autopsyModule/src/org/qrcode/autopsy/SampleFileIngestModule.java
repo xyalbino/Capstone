@@ -54,7 +54,6 @@ import org.sleuthkit.autopsy.casemodule.services.Blackboard.BlackboardException;
 import org.sleuthkit.datamodel.BlackboardAttribute.TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE;
 
 
-
 /**
  * Sample file ingest module that doesn't do much. Demonstrates per ingest job
  * module settings, use of a subset of the available ingest services and
@@ -63,8 +62,7 @@ import org.sleuthkit.datamodel.BlackboardAttribute.TSK_BLACKBOARD_ATTRIBUTE_VALU
 class SampleFileIngestModule implements FileIngestModule {
 
     private static final HashMap<Long, Long> artifactCountsForIngestJobs = new HashMap<>();
-    private static BlackboardAttribute.ATTRIBUTE_TYPE attrType = BlackboardAttribute.ATTRIBUTE_TYPE.TSK_COUNT;
-    private static BlackboardAttribute.ATTRIBUTE_TYPE attrType1 = BlackboardAttribute.ATTRIBUTE_TYPE.TSK_KEYWORD;
+    private static BlackboardAttribute.ATTRIBUTE_TYPE attrType = BlackboardAttribute.ATTRIBUTE_TYPE.TSK_KEYWORD;
     private final boolean skipKnownFiles;
     private IngestJobContext context = null;
     private static final IngestModuleReferenceCounter refCounter = new IngestModuleReferenceCounter();
@@ -98,7 +96,7 @@ class SampleFileIngestModule implements FileIngestModule {
         // in the first 1024-bytes of the file.  This is for demo
         // purposes only.
         try {
-            byte buffer[] = new byte[1024];
+            /*byte buffer[] = new byte[1024];
             int len = file.read(buffer, 0, 1024);
             int count = 0;
             for (int i = 0; i < len; i++) {
@@ -106,37 +104,21 @@ class SampleFileIngestModule implements FileIngestModule {
                     count++;
                 }
             }
-            
-            String string = attrType1.getValueType().getLabel();
+            */
+            QRCodeScanner scan = new QRCodeScanner(file.getLocalAbsPath());
+            String decoded_text = scan.decode(file.getLocalAbsPath());
+            //if (decoded_text == null) decoded_text = "Not a QR code.";
             // Make an attribute using the ID for the attribute attrType that 
             // was previously created.
             //BlackboardAttribute attr = new BlackboardAttribute(attrType, SampleIngestModuleFactory.getModuleName(), count);
             
-            BlackboardAttribute attr = new BlackboardAttribute(attrType1, SampleIngestModuleFactory.getModuleName(), string);
+            BlackboardAttribute attr = new BlackboardAttribute(attrType, SampleIngestModuleFactory.getModuleName(), decoded_text);
 
             // Add the to the general info artifact for the file. In a
             // real module, you would likely have more complex data types 
             // and be making more specific artifacts.
             BlackboardArtifact art = file.getGenInfoArtifact();
             art.addAttribute(attr);
-
-            //Create the blackboard
-
-//            Blackboard blackboard = Case.getCurrentCase().getServices().getBlackboard();
-//            try{
-//                blackboard.indexArtifact(art);
-//            } catch (BlackboardException ex) {
-//                System.out.println("Blackboard Exception");
-//            } 
-
-            Case ca = Case.getCurrentCase();
-            //String filepath = ca.getCaseDirectory() + "/";
-            try{
-                ca.addReport(ca.getCaseDirectory(), SampleIngestModuleFactory.getModuleName(),"Mr.Gao"); //threeStrings
-
-            } catch (TskCoreException e) {
-                System.out.print("Task Error");
-            }
 
             // This method is thread-safe with per ingest job reference counted
             // management of shared data.
@@ -152,6 +134,8 @@ class SampleFileIngestModule implements FileIngestModule {
             IngestServices ingestServices = IngestServices.getInstance();
             Logger logger = ingestServices.getLogger(SampleIngestModuleFactory.getModuleName());
             logger.log(Level.SEVERE, "Error processing file (id = " + file.getId() + ")", ex);
+            return IngestModule.ProcessResult.ERROR;
+        } catch ( NullPointerException e){
             return IngestModule.ProcessResult.ERROR;
         }
     }

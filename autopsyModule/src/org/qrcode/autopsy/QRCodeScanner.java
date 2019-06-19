@@ -21,18 +21,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import jp.sourceforge.qrcode.QRCodeDecoder;
 import jp.sourceforge.qrcode.data.QRCodeImage;
+import jp.sourceforge.qrcode.exception.DecodingFailedException;
 
 public class QRCodeScanner {
-
-    public static void main(String[] args) {
-        String data = "QR code tsdgdfhgghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhest.";
-        /*** 生成二维码*/
-        QRCodeScanner.encode(data, "E:/_JHU/gzy.png");
-        /*** 解析二维码*/
-        QRCodeScanner.decode("E:/_JHU/wechat1.png");
+    String path = "";
+    public QRCodeScanner(String path){
+        this.path = path;
     }
-    
-    private static boolean encode(String srcValue, String qrcodePicfilePath){
+    public boolean encode(String srcValue, String qrcodePicfilePath){
         int MAX_DATA_LENGTH = 200;
         byte[] d = srcValue.getBytes();
 
@@ -78,21 +74,30 @@ public class QRCodeScanner {
         }
         return true;
     }
-    private static String decode(String qrcodePicfilePath) {
+    public String decode(String qrcodePicfilePath) {
         //System.out.println("开始解析二维码！！");
         /* 读取二维码图像数据 */
         File imageFile = new File(qrcodePicfilePath);
-        BufferedImage image = null;
+        BufferedImage image;
+        String decodedData = "Not a image";
         try {
             image = ImageIO.read(imageFile);
         } 
         catch (IOException e) {
             //System.out.println("读取二维码图片失败： " + e.getMessage());
-            return null;
+            return decodedData;
         }
+        //System.out.println("读取二维码图片失败： " + e.getMessage());
         /* 解二维码 */
         QRCodeDecoder decoder = new QRCodeDecoder();
-        String decodedData = new String(decoder.decode(new J2SEImageGucas(image)));
+        try {
+            decodedData = new String(decoder.decode(new J2SEImageGucas(image)));
+        }
+        catch (DecodingFailedException e) {
+            //System.out.println("读取二维码图片失败： " + e.getMessage());
+            return decodedData;
+        }
+        //String decodedData = new String(decoder.decode(new J2SEImageGucas(image)));
         //System.out.println("解析内容如下："+decodedData);
         //System.out.println(new J2SEImageGucas(image));
         return decodedData;
