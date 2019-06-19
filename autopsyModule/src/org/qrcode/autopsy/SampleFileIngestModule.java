@@ -54,6 +54,7 @@ import org.sleuthkit.autopsy.casemodule.services.Blackboard.BlackboardException;
 import org.sleuthkit.datamodel.BlackboardAttribute.TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE;
 
 
+
 /**
  * Sample file ingest module that doesn't do much. Demonstrates per ingest job
  * module settings, use of a subset of the available ingest services and
@@ -120,6 +121,7 @@ class SampleFileIngestModule implements FileIngestModule {
             art.addAttribute(attr);
 
             //Create the blackboard
+
 //            Blackboard blackboard = Case.getCurrentCase().getServices().getBlackboard();
 //            try{
 //                blackboard.indexArtifact(art);
@@ -131,6 +133,7 @@ class SampleFileIngestModule implements FileIngestModule {
             //String filepath = ca.getCaseDirectory() + "/";
             try{
                 ca.addReport(ca.getCaseDirectory(), SampleIngestModuleFactory.getModuleName(),"Mr.Gao"); //threeStrings
+
             } catch (TskCoreException e) {
                 System.out.print("Task Error");
             }
