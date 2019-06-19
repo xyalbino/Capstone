@@ -51,6 +51,7 @@ import org.sleuthkit.autopsy.casemodule.Case;
 import org.sleuthkit.autopsy.casemodule.CaseMetadata;
 import org.sleuthkit.autopsy.casemodule.services.Blackboard;
 import org.sleuthkit.autopsy.casemodule.services.Blackboard.BlackboardException;
+import org.sleuthkit.datamodel.BlackboardAttribute.TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE;
 
 
 /**
@@ -61,12 +62,13 @@ import org.sleuthkit.autopsy.casemodule.services.Blackboard.BlackboardException;
 class SampleFileIngestModule implements FileIngestModule {
 
     private static final HashMap<Long, Long> artifactCountsForIngestJobs = new HashMap<>();
+
     private static BlackboardAttribute.ATTRIBUTE_TYPE attrType = BlackboardAttribute.ATTRIBUTE_TYPE.TSK_KEYWORD;
     private final boolean skipKnownFiles;
     private IngestJobContext context = null;
     private static final IngestModuleReferenceCounter refCounter = new IngestModuleReferenceCounter();
 
-     SampleFileIngestModule(SampleModuleIngestJobSettings settings) {
+    SampleFileIngestModule(SampleModuleIngestJobSettings settings) {
         this.skipKnownFiles = settings.skipKnownFiles();
     }
 
@@ -103,6 +105,7 @@ class SampleFileIngestModule implements FileIngestModule {
                     count++;
                 }
             }
+
             */
            
            //use the scanner to decode the QRcode
@@ -112,6 +115,7 @@ class SampleFileIngestModule implements FileIngestModule {
             // was previously created.
             BlackboardAttribute attr = new BlackboardAttribute(attrType, SampleIngestModuleFactory.getModuleName(), decoded_text);
 
+
             // Add the to the general info artifact for the file. In a
             // real module, you would likely have more complex data types 
             // and be making more specific artifacts.
@@ -119,17 +123,18 @@ class SampleFileIngestModule implements FileIngestModule {
             art.addAttribute(attr);
 
             //Create the blackboard
-            Blackboard blackboard = Case.getCurrentCase().getServices().getBlackboard();
-            try{
-                blackboard.indexArtifact(art);
-            } catch (BlackboardException ex) {
-                System.out.println("Blackboard Exception");
-            } 
 
-            Case ca = Case.getCurrentCase();
+//            Blackboard blackboard = Case.getCurrentCase().getServices().getBlackboard();
+//            try{
+//                blackboard.indexArtifact(art);
+//            } catch (BlackboardException ex) {
+//                System.out.println("Blackboard Exception");
+//            } 
+
 
             /* try{
                 ca.addReport("1","2","3"); //threeStrings
+
             } catch (TskCoreException e) {
                 System.out.print("Task Error");
             }
