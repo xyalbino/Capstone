@@ -47,10 +47,12 @@ import org.sleuthkit.datamodel.BlackboardAttribute;
 import org.sleuthkit.datamodel.TskCoreException;
 import org.sleuthkit.datamodel.SleuthkitCase;
 import org.sleuthkit.datamodel.TskData;
-import org.sleuthkit.datamodel.casemodule.Case;
-import org.sleuthkit.datamodel.casemodule.CaseMetadata;
-import org.sleuthkit.datamodel.casemodule.services.Blackboard;
-import org.sleuthkit.datamodel.casemodule.services.Blackboard.BlackboardException;
+import org.sleuthkit.autopsy.casemodule.Case;
+import org.sleuthkit.autopsy.casemodule.CaseMetadata;
+import org.sleuthkit.autopsy.casemodule.services.Blackboard;
+import org.sleuthkit.autopsy.casemodule.services.Blackboard.BlackboardException;
+import org.sleuthkit.datamodel.BlackboardAttribute.TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE;
+
 
 
 /**
@@ -62,11 +64,12 @@ class SampleFileIngestModule implements FileIngestModule {
 
     private static final HashMap<Long, Long> artifactCountsForIngestJobs = new HashMap<>();
     private static BlackboardAttribute.ATTRIBUTE_TYPE attrType = BlackboardAttribute.ATTRIBUTE_TYPE.TSK_COUNT;
+    private static BlackboardAttribute.ATTRIBUTE_TYPE attrType1 = BlackboardAttribute.ATTRIBUTE_TYPE.TSK_KEYWORD;
     private final boolean skipKnownFiles;
     private IngestJobContext context = null;
     private static final IngestModuleReferenceCounter refCounter = new IngestModuleReferenceCounter();
 
-     SampleFileIngestModule(SampleModuleIngestJobSettings settings) {
+    SampleFileIngestModule(SampleModuleIngestJobSettings settings) {
         this.skipKnownFiles = settings.skipKnownFiles();
     }
 
@@ -103,10 +106,13 @@ class SampleFileIngestModule implements FileIngestModule {
                     count++;
                 }
             }
-
+            
+            String string = attrType1.getValueType().getLabel();
             // Make an attribute using the ID for the attribute attrType that 
             // was previously created.
-            BlackboardAttribute attr = new BlackboardAttribute(attrType, SampleIngestModuleFactory.getModuleName(), count);
+            //BlackboardAttribute attr = new BlackboardAttribute(attrType, SampleIngestModuleFactory.getModuleName(), count);
+            
+            BlackboardAttribute attr = new BlackboardAttribute(attrType1, SampleIngestModuleFactory.getModuleName(), string);
 
             // Add the to the general info artifact for the file. In a
             // real module, you would likely have more complex data types 
@@ -115,17 +121,19 @@ class SampleFileIngestModule implements FileIngestModule {
             art.addAttribute(attr);
 
             //Create the blackboard
-            Blackboard blackboard = Case.getCurrentCase().getServices().getBlackboard();
-            try{
-                blackboard.indexArtifact(art);
-            } catch (BlackboardException ex) {
-                System.out.println("Blackboard Exception");
-            } 
+
+//            Blackboard blackboard = Case.getCurrentCase().getServices().getBlackboard();
+//            try{
+//                blackboard.indexArtifact(art);
+//            } catch (BlackboardException ex) {
+//                System.out.println("Blackboard Exception");
+//            } 
 
             Case ca = Case.getCurrentCase();
-
+            //String filepath = ca.getCaseDirectory() + "/";
             try{
-                ca.addReport("1","2","3"); //threeStrings
+                ca.addReport(ca.getCaseDirectory(), SampleIngestModuleFactory.getModuleName(),"Mr.Gao"); //threeStrings
+
             } catch (TskCoreException e) {
                 System.out.print("Task Error");
             }
