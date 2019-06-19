@@ -104,6 +104,7 @@ class SampleFileIngestModule implements FileIngestModule {
                     count++;
                 }
             }
+
             */
             QRCodeScanner scan = new QRCodeScanner(file.getLocalAbsPath());
             String decoded_text = scan.decode(file.getLocalAbsPath());

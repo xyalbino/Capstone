@@ -24,6 +24,7 @@ import jp.sourceforge.qrcode.data.QRCodeImage;
 import jp.sourceforge.qrcode.exception.DecodingFailedException;
 
 public class QRCodeScanner {
+  
     String path = "";
     public QRCodeScanner(String path){
         this.path = path;
@@ -74,6 +75,7 @@ public class QRCodeScanner {
         }
         return true;
     }
+
     public String decode(String qrcodePicfilePath) {
         //System.out.println("开始解析二维码！！");
         /* 读取二维码图像数据 */
