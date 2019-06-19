@@ -23,16 +23,8 @@ import jp.sourceforge.qrcode.QRCodeDecoder;
 import jp.sourceforge.qrcode.data.QRCodeImage;
 
 public class QRCodeScanner {
-
-    public static void main(String[] args) {
-        String data = "QR code tsdgdfhgghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhest.";
-        /*** 生成二维码*/
-        QRCodeScanner.encode(data, "E:/_JHU/gzy.png");
-        /*** 解析二维码*/
-        QRCodeScanner.decode("E:/_JHU/wechat1.png");
-    }
     
-    private static boolean encode(String srcValue, String qrcodePicfilePath){
+    public static boolean encode(String srcValue, String qrcodePicfilePath){
         int MAX_DATA_LENGTH = 200;
         byte[] d = srcValue.getBytes();
 
@@ -78,7 +70,7 @@ public class QRCodeScanner {
         }
         return true;
     }
-    private static String decode(String qrcodePicfilePath) {
+    public static String decode(String qrcodePicfilePath) {
         //System.out.println("开始解析二维码！！");
         /* 读取二维码图像数据 */
         File imageFile = new File(qrcodePicfilePath);
