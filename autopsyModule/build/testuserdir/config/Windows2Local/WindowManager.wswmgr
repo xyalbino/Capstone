@@ -5,7 +5,7 @@
   <joined-properties
    x="77"
    y="61"
-   width="1382"
+   width="1381"
    height="741"
    relative-x="0.0"
    relative-y="0.0"
@@ -41,5 +41,6 @@
   <bounds x="506" y="197" width="645" height="362" />
     </editor-area>
     <screen width="1536" height="864"/>
+    <active-mode name="editor"/>
     <toolbar configuration="Standard" preferred-icon-size="24"/>
 </windowmanager>
