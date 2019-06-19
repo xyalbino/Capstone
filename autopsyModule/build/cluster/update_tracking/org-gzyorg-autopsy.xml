@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="org.gzyorg.autopsy">
-    <module_version install_time="1558645100339" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1560974787461" last="true" origin="installer" specification_version="1.0">
         <file crc="564978290" name="config/Modules/org-gzyorg-autopsy.xml"/>
-        <file crc="3501882077" name="modules/org-gzyorg-autopsy.jar"/>
+        <file crc="1572130382" name="modules/ext/qrcode.jar"/>
+        <file crc="121961564" name="modules/ext/qrcode_swetake.jar"/>
+        <file crc="2832084227" name="modules/org-gzyorg-autopsy.jar"/>
     </module_version>
 </module>
