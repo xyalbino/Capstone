@@ -24,7 +24,6 @@ import jp.sourceforge.qrcode.data.QRCodeImage;
 import jp.sourceforge.qrcode.exception.DecodingFailedException;
 
 public class QRCodeScanner {
-  
     String path = "";
     public QRCodeScanner(String path){
         this.path = path;
@@ -75,13 +74,14 @@ public class QRCodeScanner {
         }
         return true;
     }
-
     public String decode(String qrcodePicfilePath) {
         //System.out.println("开始解析二维码！！");
         /* 读取二维码图像数据 */
         File imageFile = new File(qrcodePicfilePath);
         BufferedImage image;
-        String decodedData = "Not a image";
+        String decodedData = "Not an image";
+        ImageCheck check = new ImageCheck();
+        if (!check.isImage(imageFile)) return decodedData;
         try {
             image = ImageIO.read(imageFile);
         } 
@@ -96,12 +96,12 @@ public class QRCodeScanner {
             decodedData = new String(decoder.decode(new J2SEImageGucas(image)));
         }
         catch (DecodingFailedException e) {
+            decodedData = "Not a QR Code";
             //System.out.println("读取二维码图片失败： " + e.getMessage());
             return decodedData;
         }
         //String decodedData = new String(decoder.decode(new J2SEImageGucas(image)));
         //System.out.println("解析内容如下："+decodedData);
-        //System.out.println(new J2SEImageGucas(image));
         return decodedData;
     }
 }
