@@ -29,9 +29,13 @@
  */
 package org.qrcode.autopsy;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.Level;
-import org.sleuthkit.autopsy.casemodule.Case;
+import javax.imageio.ImageIO;
 import org.sleuthkit.autopsy.coreutils.Logger;
 import org.sleuthkit.autopsy.ingest.FileIngestModule;
 import org.sleuthkit.autopsy.ingest.IngestModule;
@@ -45,13 +49,7 @@ import org.sleuthkit.datamodel.BlackboardArtifact;
 import org.sleuthkit.datamodel.BlackboardArtifact.ARTIFACT_TYPE;
 import org.sleuthkit.datamodel.BlackboardAttribute;
 import org.sleuthkit.datamodel.TskCoreException;
-import org.sleuthkit.datamodel.SleuthkitCase;
 import org.sleuthkit.datamodel.TskData;
-import org.sleuthkit.autopsy.casemodule.Case;
-import org.sleuthkit.autopsy.casemodule.CaseMetadata;
-import org.sleuthkit.autopsy.casemodule.services.Blackboard;
-import org.sleuthkit.autopsy.casemodule.services.Blackboard.BlackboardException;
-import org.sleuthkit.datamodel.BlackboardAttribute.TSK_BLACKBOARD_ATTRIBUTE_VALUE_TYPE;
 
 
 /**
@@ -92,23 +90,10 @@ class SampleFileIngestModule implements FileIngestModule {
             return IngestModule.ProcessResult.OK;
         }
 
-        // Do a nonsensical calculation of the number of 0x00 bytes
-        // in the first 1024-bytes of the file.  This is for demo
-        // purposes only.
+        // Deliver the file to QR code module 
         try {
-            /*byte buffer[] = new byte[1024];
-            int len = file.read(buffer, 0, 1024);
-            int count = 0;
-            for (int i = 0; i < len; i++) {
-                if (buffer[i] == 0x00) {
-                    count++;
-                }
-            }
-
-            */
             QRCodeScanner scan = new QRCodeScanner(file.getLocalAbsPath());
             String decoded_text = scan.decode(file.getLocalAbsPath());
-            //if (decoded_text == null) decoded_text = "Not a QR code.";
             // Make an attribute using the ID for the attribute attrType that 
             // was previously created.
             //BlackboardAttribute attr = new BlackboardAttribute(attrType, SampleIngestModuleFactory.getModuleName(), count);
@@ -131,12 +116,10 @@ class SampleFileIngestModule implements FileIngestModule {
 
             return IngestModule.ProcessResult.OK;
 
-        } catch (TskCoreException ex) {
+        } catch (TskCoreException | NullPointerException ex) {
             IngestServices ingestServices = IngestServices.getInstance();
             Logger logger = ingestServices.getLogger(SampleIngestModuleFactory.getModuleName());
             logger.log(Level.SEVERE, "Error processing file (id = " + file.getId() + ")", ex);
-            return IngestModule.ProcessResult.ERROR;
-        } catch ( NullPointerException e){
             return IngestModule.ProcessResult.ERROR;
         }
     }
