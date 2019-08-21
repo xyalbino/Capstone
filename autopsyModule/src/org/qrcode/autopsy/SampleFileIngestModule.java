@@ -29,13 +29,10 @@
  */
 package org.qrcode.autopsy;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import com.google.zxing.NotFoundException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
-import javax.imageio.ImageIO;
 import org.sleuthkit.autopsy.coreutils.Logger;
 import org.sleuthkit.autopsy.ingest.FileIngestModule;
 import org.sleuthkit.autopsy.ingest.IngestModule;
@@ -51,28 +48,35 @@ import org.sleuthkit.datamodel.BlackboardAttribute;
 import org.sleuthkit.datamodel.TskCoreException;
 import org.sleuthkit.datamodel.TskData;
 
-
 /**
  * Sample file ingest module that doesn't do much. Demonstrates per ingest job
  * module settings, use of a subset of the available ingest services and
  * thread-safe sharing of per ingest job data.
  */
+/**
+ *
+ * @author Harley
+ */
 class SampleFileIngestModule implements FileIngestModule {
 
     private static final HashMap<Long, Long> artifactCountsForIngestJobs = new HashMap<>();
     private static BlackboardAttribute.ATTRIBUTE_TYPE attrType = BlackboardAttribute.ATTRIBUTE_TYPE.TSK_KEYWORD;
-    private final boolean skipKnownFiles;
+    private static  boolean skipKnownFiles;
     private IngestJobContext context = null;
     private static final IngestModuleReferenceCounter refCounter = new IngestModuleReferenceCounter();
-
+    private static Report report;
+    
     SampleFileIngestModule(SampleModuleIngestJobSettings settings) {
         this.skipKnownFiles = settings.skipKnownFiles();
     }
-
+    
     @Override
-    public  void startUp(IngestJobContext context) throws IngestModuleException {
+    public synchronized void startUp(IngestJobContext context) throws IngestModuleException {
         this.context = context;
         refCounter.incrementAndGet(context.getJobId());
+        String path = "D:/"+ String.valueOf(context.getJobId());
+        report = new Report();
+        report.startup(path);
     }
 
     @Override
@@ -93,12 +97,13 @@ class SampleFileIngestModule implements FileIngestModule {
         // Deliver the file to QR code module 
         try {
             QRCodeScanner scan = new QRCodeScanner(file.getLocalAbsPath());
-            String decoded_text = scan.decode(file.getLocalAbsPath());
+            List<String> decodedData = scan.decode();
+            //String version=scan.getVersion(file.getLocalAbsPath());
             // Make an attribute using the ID for the attribute attrType that 
             // was previously created.
             //BlackboardAttribute attr = new BlackboardAttribute(attrType, SampleIngestModuleFactory.getModuleName(), count);
             
-            BlackboardAttribute attr = new BlackboardAttribute(attrType, SampleIngestModuleFactory.getModuleName(), decoded_text);
+            BlackboardAttribute attr = new BlackboardAttribute(attrType, SampleIngestModuleFactory.getModuleName(), decodedData.get(0));
 
             // Add the to the general info artifact for the file. In a
             // real module, you would likely have more complex data types 
@@ -113,21 +118,29 @@ class SampleFileIngestModule implements FileIngestModule {
             // Fire an event to notify any listeners for blackboard postings.
             ModuleDataEvent event = new ModuleDataEvent(SampleIngestModuleFactory.getModuleName(), ARTIFACT_TYPE.TSK_GEN_INFO);
             IngestServices.getInstance().fireModuleDataEvent(event);
+            
+            if(!decodedData.get(0).equals("Not an Image")&&!decodedData.get(0).equals("Not a QR Code")){
+                String QRType = report.parseQR(decodedData.get(0));
+                report.addFileAttributes(file.getName(),file.getLocalPath(), decodedData.get(0), decodedData.get(3), 
+                        QRType, file.getNameExtension(), decodedData.get(2),decodedData.get(1));//添加info到list
+            }
 
             return IngestModule.ProcessResult.OK;
-
-        } catch (TskCoreException | NullPointerException ex) {
+        } catch (TskCoreException | NullPointerException | NotFoundException ex) {
             IngestServices ingestServices = IngestServices.getInstance();
             Logger logger = ingestServices.getLogger(SampleIngestModuleFactory.getModuleName());
             logger.log(Level.SEVERE, "Error processing file (id = " + file.getId() + ")", ex);
             return IngestModule.ProcessResult.ERROR;
         }
+    
     }
+  
 
     @Override
-    public  void shutDown() {
+    public synchronized void shutDown() {
         // This method is thread-safe with per ingest job reference counted
         // management of shared data.
+        report.generateReport();
         reportBlackboardPostCount(context.getJobId());
     }
 
